@@ -1,6 +1,5 @@
 class CreateGameRound
 
-
   def self.call(users:)
     new(users: users).call
   end
@@ -25,9 +24,18 @@ class CreateGameRound
         mission.weapon = Weapon.all.sample
         mission.save!
       end      
-      @round
     end
 
+    send_mission_instructions if @round.persisted?
+
+    @round
+  end
+
+  private
+  def send_mission_instructions
+    @round.players.each do |player|
+      Game::PlayerNotifierMailer.send_mission_instructions(player).deliver
+    end
   end
 
 end

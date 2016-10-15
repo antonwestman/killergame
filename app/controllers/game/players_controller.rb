@@ -40,14 +40,15 @@ module Game
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_player
-        @player = Game::Player.find(params[:id])
-      end
 
-      # Only allow a trusted parameter "white list" through.
-      def player_params
-        params.fetch(:player, {})
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_player
+      @player = Game::Player.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def player_params
+      params.fetch(:player, {})
+    end
   end
 end

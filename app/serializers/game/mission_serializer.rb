@@ -13,6 +13,5 @@ module Game
     def place
       object.place.name
     end
-
   end
 end

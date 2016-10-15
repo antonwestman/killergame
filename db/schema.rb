@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161015095706) do
+ActiveRecord::Schema.define(version: 20161015104405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "game_missions", force: :cascade do |t|
+    t.integer  "player_id",  null: false
+    t.integer  "target_id",  null: false
+    t.integer  "place_id",   null: false
+    t.integer  "weapon_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_game_missions_on_place_id", using: :btree
+    t.index ["player_id"], name: "index_game_missions_on_player_id", using: :btree
+    t.index ["target_id"], name: "index_game_missions_on_target_id", using: :btree
+    t.index ["weapon_id"], name: "index_game_missions_on_weapon_id", using: :btree
+  end
+
+  create_table "game_players", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "round_id"
+    t.string   "player_name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["round_id"], name: "index_game_players_on_round_id", using: :btree
+    t.index ["user_id"], name: "index_game_players_on_user_id", using: :btree
+  end
+
+  create_table "game_rounds", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "places", force: :cascade do |t|
     t.string   "name",       null: false
@@ -40,4 +68,10 @@ ActiveRecord::Schema.define(version: 20161015095706) do
     t.index ["name"], name: "index_weapons_on_name", unique: true, using: :btree
   end
 
+  add_foreign_key "game_missions", "game_players", column: "player_id"
+  add_foreign_key "game_missions", "game_players", column: "target_id"
+  add_foreign_key "game_missions", "places"
+  add_foreign_key "game_missions", "weapons"
+  add_foreign_key "game_players", "game_rounds", column: "round_id"
+  add_foreign_key "game_players", "users"
 end

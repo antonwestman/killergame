@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :weapon do
-    name "Rubber boot"   
+    name 'Rubber boot'
   end
 end

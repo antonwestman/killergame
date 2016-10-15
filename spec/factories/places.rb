@@ -1,7 +1,5 @@
 FactoryGirl.define do
   factory :place do
-
-    name "kitchen"
-    
+    name 'kitchen'
   end
 end

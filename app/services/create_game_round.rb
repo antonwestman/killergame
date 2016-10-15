@@ -11,18 +11,21 @@ class CreateGameRound
   end
 
   def call
-
     ActiveRecord::Base.transaction do
       players =  @users.map { |u| Game::Player.new(user: u) }
+      @round.players << players
+      @round.save!
 
       shuffled_players = players.shuffle
       shuffled_players.each.with_index do |player, index|
-        player.target = shuffled_players[(index+1)%shuffled_players.count]
-        player.mission.place = Place.all.sample
-        player.mission.weapon = Weapon.all.sample
+        mission = Game::Mission.new
+        mission.player = player
+        mission.target = shuffled_players[(index+1)%shuffled_players.count]
+        mission.place = Place.all.sample
+        mission.weapon = Weapon.all.sample
+        mission.save!
       end      
-      @round.players << players
-      @round.save
+      @round
     end
 
   end

@@ -9,6 +9,8 @@ RSpec.describe CreateGameRound, type: :model do
 
     expect{CreateGameRound.call(users: round_users)}.to change{Game::Round.count}.by 1
     expect(Game::Round.first.players.count).to eq 2
+    expect(Game::Player.count).to eq 2
+    expect(Game::Mission.count).to eq 2
   end
 
 

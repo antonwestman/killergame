@@ -33,10 +33,28 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # configure factory girl
   config.include FactoryGirl::Syntax::Methods
+
+  # clean up the database and create a structure if needed before running the tests
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+    Rails.application.load_seed
+  end
+
+  config.before(:example) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:example, :with_db_truncation) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.after(:example, :with_db_truncation) do
+    Rails.application.load_seed
+  end
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and

@@ -1,0 +1,9 @@
+example_id                                | status | run_time        |
+----------------------------------------- | ------ | --------------- |
+./spec/models/game/mission_spec.rb[1:1]   | passed | 1.3 seconds     |
+./spec/models/game/player_spec.rb[1:1]    | passed | 0.01883 seconds |
+./spec/models/game/round_spec.rb[1:1]     | passed | 0.00275 seconds |
+./spec/models/place_spec.rb[1:1]          | passed | 0.00273 seconds |
+./spec/models/user_spec.rb[1:1]           | passed | 0.00617 seconds |
+./spec/models/weapon_spec.rb[1:1]         | passed | 0.00371 seconds |
+./spec/services/create_game_round.rb[1:1] | passed | 0.34095 seconds |

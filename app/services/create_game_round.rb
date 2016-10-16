@@ -34,7 +34,7 @@ class CreateGameRound
   private
   def send_mission_instructions
     @round.players.each do |player|
-      Game::PlayerNotifierMailer.send_mission_instructions(player).deliver
+      Game::PlayerNotifierMailer.send_mission_instructions(player).deliver_later
     end
   end
 

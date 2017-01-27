@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "Places", type: :request do
-  describe "GET /places" do
-    it "responds" do
+RSpec.describe 'Places', type: :request do
+  describe 'GET /places' do
+    it 'responds' do
       get places_path
       expect(response).to have_http_status(200)
     end

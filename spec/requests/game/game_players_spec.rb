@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Game::Players', type: :request do
   describe 'GET /game/players' do
-
     let(:round) { create(:round) }
 
     it 'responds' do

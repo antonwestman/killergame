@@ -1,10 +1,10 @@
 module Game
   class PlayersController < ApplicationController
-    before_action :set_player, only: [:show, :update, :destroy]
+    before_action :set_player, only: [:show]
 
     # GET /game/players
     def index
-      @players = Game::Player.all
+      @players = Game::Player.where(params.permit(:round_id))
 
       render json: @players
     end
@@ -12,31 +12,6 @@ module Game
     # GET /game/players/1
     def show
       render json: @player
-    end
-
-    # POST /game/players
-    def create
-      @player = Game::Player.new(player_params)
-
-      if @player.save
-        render json: @player, status: :created, location: @player
-      else
-        render json: @player.errors, status: :unprocessable_entity
-      end
-    end
-
-    # PATCH/PUT /game/players/1
-    def update
-      if @player.update(player_params)
-        render json: @player
-      else
-        render json: @player.errors, status: :unprocessable_entity
-      end
-    end
-
-    # DELETE /game/players/1
-    def destroy
-      @player.destroy
     end
 
     private
@@ -48,7 +23,7 @@ module Game
 
     # Only allow a trusted parameter "white list" through.
     def player_params
-      params.fetch(:player, {})
+      params.require(:player).permit(:round_id)
     end
   end
 end

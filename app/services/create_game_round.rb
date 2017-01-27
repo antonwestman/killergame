@@ -25,6 +25,8 @@ class CreateGameRound
         )
       end
       @round.save!
+      raise 'This is not Soliraire. At least two players are required' if @round.players.count < 2
+
     end
 
     send_mission_instructions if @round.persisted?

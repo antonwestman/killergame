@@ -26,15 +26,6 @@ class Game::RoundsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /game/rounds/1
-  def update
-    if @game_round.update(game_round_params)
-      render json: @game_round
-    else
-      render json: @game_round.errors, status: :unprocessable_entity
-    end
-  end
-
   # DELETE /game/rounds/1
   def destroy
     @game_round.destroy

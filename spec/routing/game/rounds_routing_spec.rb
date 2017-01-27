@@ -15,14 +15,6 @@ RSpec.describe Game::RoundsController, type: :routing do
       expect(:post => "/game/rounds").to route_to("game/rounds#create")
     end
 
-    it "routes to #update via PUT" do
-      expect(:put => "/game/rounds/1").to route_to("game/rounds#update", :id => "1")
-    end
-
-    it "routes to #update via PATCH" do
-      expect(:patch => "/game/rounds/1").to route_to("game/rounds#update", :id => "1")
-    end
-
     it "routes to #destroy" do
       expect(:delete => "/game/rounds/1").to route_to("game/rounds#destroy", :id => "1")
     end

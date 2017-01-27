@@ -3,8 +3,8 @@ class UsersController < ApplicationController
 
   # GET /game/users
   def index
-    @users = User.all
-
+    @q = User.ransack(params[:q])
+    @users = @q.result(distinct: true).paginate(page: params[:page])
     render json: @users
   end
 

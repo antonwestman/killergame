@@ -3,7 +3,8 @@ class WeaponsController < ApplicationController
 
   # GET /weapons
   def index
-    @weapons = Weapon.all
+    @q = Weapon.ransack(params[:q])
+    @weapons = @q.result(distinct: true).paginate(page: params[:page])
 
     render json: @weapons
   end

@@ -20,6 +20,9 @@ gem 'active_model_serializers'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
+gem 'will_paginate', github: 'jonatack/will_paginate'
+gem 'ransack', github: 'activerecord-hackery/ransack'
+
 gem 'awesome_print'
 
 group :development, :test do

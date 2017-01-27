@@ -3,7 +3,8 @@ class PlacesController < ApplicationController
 
   # GET /places
   def index
-    @places = Place.all
+    @q = Place.ransack(params[:q])
+    @places = @q.result(distinct: true).paginate(page: params[:page])
 
     render json: @places
   end

@@ -3,4 +3,6 @@ Rails.application.routes.draw do
     resources :players
   end
   resources :users
+  resources :weapons
+  resources :places
 end

@@ -3,5 +3,7 @@ module Game
     belongs_to :user
     belongs_to :round
     has_one :mission, autosave: true, inverse_of: :player
+
+    validates_associated :mission
   end
 end

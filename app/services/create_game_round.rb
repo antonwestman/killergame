@@ -13,17 +13,18 @@ class CreateGameRound
     ActiveRecord::Base.transaction do
       players =  @users.map { |u| Game::Player.new(user: u) }
       @round.players << players
-      @round.save!
+      @round.save
 
       shuffled_players = players.shuffle
       shuffled_players.each.with_index do |player, index|
-        mission = Game::Mission.new
-        mission.player = player
-        mission.target = shuffled_players[(index+1)%shuffled_players.count]
-        mission.place = Place.all.sample
-        mission.weapon = Weapon.all.sample
-        mission.save!
-      end      
+        Game::Mission.create(
+          player: player,
+          target: shuffled_players[(index+1)%shuffled_players.count],
+          place: Place.all.sample,
+          weapon: Weapon.all.sample
+        )
+      end
+      @round.save!
     end
 
     send_mission_instructions if @round.persisted?

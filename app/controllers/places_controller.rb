@@ -46,6 +46,6 @@ class PlacesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def place_params
-      params.fetch(:place, {})
+      params.require(:place).permit(:name)
     end
 end

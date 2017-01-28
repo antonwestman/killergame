@@ -31,6 +31,8 @@ module Game
       state :dead
     end
 
+    delegate :email, to: :user
+
     def accept_kill!(kill)
       kill.confirm
     end

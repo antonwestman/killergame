@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :place do
-    name 'kitchen'
+    sequence(:name) { |n| "Drottninggatan #{n}" }
   end
 end

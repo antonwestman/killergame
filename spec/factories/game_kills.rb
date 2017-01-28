@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :kill, class: 'Game::Kill' do
-    association :killer, round_id: 1
-    association :victim, round_id: 1
-    association :round, id: 1
+    killer { FactoryGirl.build(:player, round: FactoryGirl.build(:round, id: 1)) }
+    victim { FactoryGirl.build(:player, round: FactoryGirl.build(:round, id: 1)) }
+    round { FactoryGirl.build(:round, id: 1) }
   end
 end

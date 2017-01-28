@@ -1,6 +1,6 @@
 module Game
   class PlayersController < ApplicationController
-    before_action :set_player, only: [:show, :accept_kill, :oppose_kill]
+    before_action :set_player, only: [:show]
 
     # GET /game/players
     def index
@@ -14,21 +14,11 @@ module Game
       render json: @player
     end
 
-    def accept_kill
-      @player.accept_kill!
-      head :ok
-    end
-
-    def oppose_kill
-      @player.oppose_kill!
-      head :ok
-    end
-
     private
 
     # Use callbacks to share common setup or constraints between actions.
     def set_player
-      @player = Game::Player.find(params[:id])
+      @player = Player.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

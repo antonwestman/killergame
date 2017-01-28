@@ -22,12 +22,22 @@ module Game
       state :confirmed
     end
 
+    after_create :mark_victim_as_killed
+
     private
+
+    def mark_victim_as_killed
+      if victim == killer
+        victim.commit_suicide
+        confirm!
+      else
+        victim.mark_as_killed!
+      end
+    end
 
     def validate_rounds
       return if [killer&.round, victim&.round].all?(&round.method(:==))
-      errors[:round] << 'must be same in killer, victim and kill' 
+      errors[:round] << 'must be same in killer, victim and kill'
     end
-
   end
 end

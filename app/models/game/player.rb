@@ -5,7 +5,10 @@ module Game
     belongs_to :user
     belongs_to :round
     has_one :mission, autosave: true, inverse_of: :player, dependent: :destroy
-    has_one :contract_on_own_head, class_name: Mission, autosave: true, foreign_key: :target_id, dependent: :destroy
+    has_one :contract_on_own_head, class_name: Mission,
+                                   autosave: true,
+                                   foreign_key: :target_id,
+                                   dependent: :destroy
 
     has_one :death, class_name: Kill, foreign_key: :victim_id, dependent: :destroy
     has_many :kills, foreign_key: :killer_id, dependent: :destroy
@@ -28,20 +31,8 @@ module Game
       state :dead
     end
 
-    def accept_kill
-      round.kills.find_by(victim: self).accept
-    end
-
-    def oppose_kill
-      round.kills.find_by(victim: self).accept
-    end
-
-    def mark_as_killed(killer:)
-      round.kills.create(killer: killer, victim: self)
-    end
-
-    def commit_suicide
-      round.kills.create(killer: self, victim: self)
+    def accept_kill!(kill)
+      kill.confirm
     end
   end
 end

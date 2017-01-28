@@ -1,6 +1,6 @@
 module Game
   class PlayersController < ApplicationController
-    before_action :set_player, only: [:show, :kill, :accept_kill, :oppose_kill]
+    before_action :set_player, only: [:show, :accept_kill, :oppose_kill]
 
     # GET /game/players
     def index
@@ -12,14 +12,6 @@ module Game
     # GET /game/players/1
     def show
       render json: @player
-    end
-
-    def kill
-      # TMP until auth
-      killer = Player.find(params[:killer_id])
-
-      @player.mark_as_killed!(killer: killer)
-      head :ok
     end
 
     def accept_kill

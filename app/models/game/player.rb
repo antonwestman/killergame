@@ -4,9 +4,11 @@ module Game
 
     belongs_to :user
     belongs_to :round
-    has_one :mission, autosave: true, inverse_of: :player
-    has_one :death, class_name: Kill, foreign_key: :victim_id
-    has_many :kills, foreign_key: :killer_id
+    has_one :mission, autosave: true, inverse_of: :player, dependent: :destroy
+    has_one :contract_on_own_head, class_name: Mission, autosave: true, foreign_key: :target_id, dependent: :destroy
+
+    has_one :death, class_name: Kill, foreign_key: :victim_id, dependent: :destroy
+    has_many :kills, foreign_key: :killer_id, dependent: :destroy
 
     scope :alive, -> { where.not(status: 'dead') }
     scope :dead, -> { where(status: 'dead') }

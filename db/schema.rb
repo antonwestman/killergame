@@ -16,11 +16,12 @@ ActiveRecord::Schema.define(version: 20170128004012) do
   enable_extension "plpgsql"
 
   create_table "game_kills", force: :cascade do |t|
-    t.integer  "killer_id",  null: false
-    t.integer  "victim_id",  null: false
-    t.integer  "round_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "killer_id",                          null: false
+    t.integer  "victim_id",                          null: false
+    t.integer  "round_id",                           null: false
+    t.string   "status",     default: "unconfirmed", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.index ["killer_id"], name: "index_game_kills_on_killer_id", using: :btree
     t.index ["round_id"], name: "index_game_kills_on_round_id", using: :btree
     t.index ["victim_id"], name: "index_game_kills_on_victim_id", using: :btree

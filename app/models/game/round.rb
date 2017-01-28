@@ -2,7 +2,7 @@ module Game
   class Round < ApplicationRecord
     has_many :players, dependent: :destroy
     has_many :missions, through: :players
-    has_many :kills
+    has_many :kills, dependent: :destroy
 
     validates_associated :players
 

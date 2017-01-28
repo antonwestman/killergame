@@ -1,10 +1,10 @@
 module Game
   class PlayerSerializer < ActiveModel::Serializer
-    attributes :id, :username
+    attributes :id, :username, :status
     has_one :mission
 
     def username
-      object.user.username
+      object.player_name || object.user.username
     end
   end
 end

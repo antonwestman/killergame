@@ -4,7 +4,7 @@ module Game
 
     # GET /game/players
     def index
-      @players = Game::Player.where(params.permit(:round_id))
+      @players = Player.where(params.permit(:round_id))
 
       render json: @players
     end
@@ -15,7 +15,10 @@ module Game
     end
 
     def kill
-      @player.mark_as_killed!
+      # TMP until auth
+      killer = Player.find(params[:killer_id])
+
+      @player.mark_as_killed!(killer: killer)
       head :ok
     end
 

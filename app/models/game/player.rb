@@ -5,6 +5,8 @@ module Game
     belongs_to :user
     belongs_to :round
     has_one :mission, autosave: true, inverse_of: :player
+    has_one :death, class_name: Kill, foreign_key: :victim_id
+    has_many :kills, foreign_key: :killer_id
 
     scope :alive, -> { where.not(status: 'dead') }
     scope :dead, -> { where(status: 'dead') }
@@ -22,10 +24,22 @@ module Game
         event :oppose_kill, transitions_to: :alive
       end
       state :dead
+    end
 
-      on_transition do |_from, to, _triggering_event, *_event_args|
-        round.declare_winner! if to == :dead && round.players.alive.count == 2
-      end
+    def accept_kill
+      round.kills.find_by(victim: self).accept
+    end
+
+    def oppose_kill
+      round.kills.find_by(victim: self).accept
+    end
+
+    def mark_as_killed(killer:)
+      round.kills.create(killer: killer, victim: self)
+    end
+
+    def commit_suicide
+      round.kills.create(killer: self, victim: self)
     end
   end
 end

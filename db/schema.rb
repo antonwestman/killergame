@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170128001659) do
+ActiveRecord::Schema.define(version: 20170128004012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "game_kills", force: :cascade do |t|
+    t.integer  "killer_id",  null: false
+    t.integer  "victim_id",  null: false
+    t.integer  "round_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["killer_id"], name: "index_game_kills_on_killer_id", using: :btree
+    t.index ["round_id"], name: "index_game_kills_on_round_id", using: :btree
+    t.index ["victim_id"], name: "index_game_kills_on_victim_id", using: :btree
+  end
 
   create_table "game_missions", force: :cascade do |t|
     t.integer  "player_id",  null: false
@@ -70,6 +81,9 @@ ActiveRecord::Schema.define(version: 20170128001659) do
     t.index ["name"], name: "index_weapons_on_name", unique: true, using: :btree
   end
 
+  add_foreign_key "game_kills", "game_players", column: "killer_id"
+  add_foreign_key "game_kills", "game_players", column: "victim_id"
+  add_foreign_key "game_kills", "game_rounds", column: "round_id"
   add_foreign_key "game_missions", "game_players", column: "player_id"
   add_foreign_key "game_missions", "game_players", column: "target_id"
   add_foreign_key "game_missions", "places"

@@ -4,8 +4,6 @@ module Game
     has_many :missions, through: :players
     has_many :kills, dependent: :destroy
 
-    validates_associated :players
-
     def declare_winner!
       update! ongoing: false
     end

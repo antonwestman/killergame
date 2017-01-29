@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /game/users
   def index
     @q = User.ransack(params[:q])
-    @users = @q.result(distinct: true).paginate(page: params[:page])
+    @users = @q.result.paginate(page: params[:page])
     render json: @users
   end
 

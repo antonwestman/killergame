@@ -28,10 +28,13 @@ module Killergame
     config.api_only = true
     WillPaginate.per_page = 10
 
-    config.middleware.insert_before 0, Rack::Cors do
+    config.middleware.use Rack::Cors do
       allow do
         origins '*'
-        resource '*', headers: :any, methods: [:get, :post, :options]
+        resource '*',
+                 headers: :any,
+                 expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+                 methods: [:get, :post, :options, :delete, :put]
       end
     end
   end

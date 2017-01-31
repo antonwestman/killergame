@@ -5,12 +5,15 @@ module Game
     # GET /game/players
     def index
       @players = Player.where(params.permit(:round_id))
+      authorize @players
 
       render json: @players
     end
 
     # GET /game/players/1
     def show
+      authorize @player
+
       render json: @player
     end
 

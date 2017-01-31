@@ -29,6 +29,8 @@ gem 'ransack', github: 'activerecord-hackery/ransack'
 
 gem 'awesome_print'
 
+gem 'pundit'
+
 #   https://github.com/brettjnorris/workflow/commit/b95d882cb0b82266ca2c4439b9df1bb63b6bef6c
 gem 'workflow', git: 'https://github.com/antonwestman/workflow.git'
 

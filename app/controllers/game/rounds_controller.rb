@@ -4,18 +4,21 @@ module Game
 
     # GET /game/rounds
     def index
-      @game_rounds = Game::Round.all
+      @game_rounds = Round.all
 
       render json: @game_rounds
     end
 
     # GET /game/rounds/1
     def show
+      authorize game_round
       render json: @game_round
     end
 
     # POST /game/rounds
     def create
+
+      authorize Round
       users = User.where(id: params[:user_ids])
 
       @game_round = CreateGameRound.call(users: users)
@@ -29,6 +32,7 @@ module Game
 
     # DELETE /game/rounds/1
     def destroy
+      authorize @game_round
       @game_round.destroy
     end
 

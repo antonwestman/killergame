@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :confirmable, :omniauthable
   include DeviseTokenAuth::Concerns::User
   validates :email, presence: true
+  has_many :players
+  has_many :targets, through: :players
 
   def self.ransackable_attributes(auth_object = nil)
     super & %w(username first_name last_name email)

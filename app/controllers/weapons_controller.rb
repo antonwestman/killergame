@@ -17,6 +17,7 @@ class WeaponsController < ApplicationController
   # POST /weapons
   def create
     @weapon = Weapon.new(weapon_params)
+    authorize @weapon
 
     if @weapon.save
       render json: @weapon, status: :created, location: @weapon
@@ -27,6 +28,8 @@ class WeaponsController < ApplicationController
 
   # PATCH/PUT /weapons/1
   def update
+    authorize @weapon
+
     if @weapon.update(weapon_params)
       render json: @weapon
     else
@@ -36,6 +39,8 @@ class WeaponsController < ApplicationController
 
   # DELETE /weapons/1
   def destroy
+    authorize @weapon
+
     @weapon.destroy
   end
 

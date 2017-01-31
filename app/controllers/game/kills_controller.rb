@@ -4,6 +4,7 @@ module Game
 
     # GET /kills
     def index
+      authorize @kill
       @kills = Kill.where(round_id: params.require(:round_id))
 
       render json: @kills
@@ -11,6 +12,8 @@ module Game
 
     def create
       @kill = Kill.new(kill_params)
+
+      authorize @kill
 
       if @kill.save
         render json: @kill, status: :created, location: @kill
@@ -20,12 +23,12 @@ module Game
     end
 
     def accept
-      current_user = @kill.victim # until auth is in place
+      authorize @kill
       current_user.accept_kill!(@kill)
     end
 
     def oppose
-      current_user = @kill.victim # until auth is in place
+      authorize @kill
       current_user.oppose_kill!(@kill)
     end
 

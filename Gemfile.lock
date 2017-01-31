@@ -131,6 +131,8 @@ GEM
       activerecord (>= 3.0)
     powerpack (0.1.1)
     puma (3.6.0)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.1)
     rack-cors (0.4.0)
     rack-test (0.6.3)
@@ -229,6 +231,7 @@ DEPENDENCIES
   omniauth
   pg
   puma (~> 3.0)
+  pundit
   rack-cors
   rails (~> 5.0.0, >= 5.0.0.1)
   ransack!

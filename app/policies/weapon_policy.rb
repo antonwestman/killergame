@@ -1,0 +1,2 @@
+class WeaponPolicy < ApplicationPolicy
+end

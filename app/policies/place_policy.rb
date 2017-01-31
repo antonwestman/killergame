@@ -1,0 +1,2 @@
+class PlacePolicy < ApplicationPolicy
+end

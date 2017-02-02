@@ -1,5 +1,9 @@
 module Game
   class KillPolicy < ApplicationPolicy
+    def index?
+      false
+    end
+
     def create?
       user.targets.include? record.victim
     end

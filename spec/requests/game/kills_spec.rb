@@ -1,12 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'Game::Kills', type: :request do
+  let(:user) { build(:user) }
+
   describe 'GET /kills' do
     let(:round) { create(:round) }
 
-    it 'works! (now write some real specs)' do
-      get game_round_kills_path round
-      expect(response).to have_http_status(200)
+    it 'resoponds with 401' do
+      get_with_user user, game_round_kills_path(round)
+      expect(response).to have_http_status(401)
     end
   end
 end

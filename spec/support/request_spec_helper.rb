@@ -1,22 +1,7 @@
 module RequestSpecHelper
-  include Warden::Test::Helpers
-
-  def self.included(base)
-    base.before(:each) { Warden.test_mode! }
-    base.after(:each) { Warden.test_reset! }
-  end
-
-  def sign_in(resource)
-    login_as(resource, scope: warden_scope(resource))
-  end
-
-  def sign_out(resource)
-    logout(warden_scope(resource))
-  end
-
-  private
-
-  def warden_scope(resource)
-    resource.class.name.underscore.to_sym
+  def get_with_user(user, path, **args)
+    headers = (args[:headers] || {}).merge(user.create_new_auth_token)
+    get path, params: args[:params],
+              headers: headers
   end
 end

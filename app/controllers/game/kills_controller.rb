@@ -4,7 +4,7 @@ module Game
 
     # GET /kills
     def index
-      authorize @kill
+      authorize Kill
       @kills = Kill.where(round_id: params.require(:round_id))
 
       render json: @kills

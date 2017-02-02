@@ -15,8 +15,9 @@ gem 'active_model_serializers'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'devise'
-gem 'omniauth'
 gem 'devise_token_auth'
+gem 'omniauth'
+gem 'pundit'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -24,12 +25,12 @@ gem 'devise_token_auth'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
-gem 'will_paginate', github: 'jonatack/will_paginate'
 gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'will_paginate', github: 'jonatack/will_paginate'
 
 gem 'awesome_print'
 
-gem 'pundit'
+gem 'simplecov', require: false, group: :test
 
 #   https://github.com/brettjnorris/workflow/commit/b95d882cb0b82266ca2c4439b9df1bb63b6bef6c
 gem 'workflow', git: 'https://github.com/antonwestman/workflow.git'
@@ -37,8 +38,8 @@ gem 'workflow', git: 'https://github.com/antonwestman/workflow.git'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'rspec-rails'
   gem 'faker'
   gem 'dotenv-rails'
 end
@@ -51,8 +52,8 @@ group :development do
   gem 'listen', '~> 3.0.5'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rubocop', require: false
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

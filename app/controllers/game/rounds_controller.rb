@@ -17,7 +17,6 @@ module Game
 
     # POST /game/rounds
     def create
-
       authorize Round
       users = User.where(id: params[:user_ids])
 

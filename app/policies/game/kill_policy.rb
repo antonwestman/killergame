@@ -1,6 +1,5 @@
 module Game
   class KillPolicy < ApplicationPolicy
-
     def create?
       user.targets.include? record.victim
     end
@@ -12,6 +11,5 @@ module Game
     def oppose?
       record.victim == user
     end
-
   end
 end

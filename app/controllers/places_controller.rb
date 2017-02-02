@@ -16,7 +16,6 @@ class PlacesController < ApplicationController
 
   # POST /places
   def create
-
     @place = Place.new(place_params)
 
     authorize @place
@@ -30,7 +29,6 @@ class PlacesController < ApplicationController
 
   # PATCH/PUT /places/1
   def update
-
     authorize @place
 
     if @place.update(place_params)

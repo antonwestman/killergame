@@ -17,7 +17,6 @@ class PlacesController < ApplicationController
   # POST /places
   def create
     @place = Place.new(place_params)
-
     authorize @place
 
     if @place.save

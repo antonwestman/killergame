@@ -1,6 +1,6 @@
 module Game
   class KillsController < ApplicationController
-    before_action :set_kill, only: [:accept, :oppose]
+    before_action :set_kill, only: [:confirm, :oppose]
 
     # GET /kills
     def index
@@ -22,14 +22,14 @@ module Game
       end
     end
 
-    def accept
+    def confirm
       authorize @kill
-      current_user.accept_kill!(@kill)
+      @kill.confirm!
     end
 
     def oppose
       authorize @kill
-      current_user.oppose_kill!(@kill)
+      @kill.oppose!
     end
 
     private

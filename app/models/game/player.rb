@@ -26,16 +26,12 @@ module Game
         event :commit_suicide, transitions_to: :dead
       end
       state :marked_as_killed do
-        event :accept_kill, transitions_to: :dead
+        event :confirm_kill, transitions_to: :dead
         event :oppose_kill, transitions_to: :alive
       end
       state :dead
     end
 
     delegate :email, to: :user
-
-    def accept_kill!(kill)
-      kill.confirm
-    end
   end
 end

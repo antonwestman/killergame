@@ -24,6 +24,10 @@ module Game
 
     after_create :mark_victim_as_killed
 
+    def confirm!
+      victim.confirm_kill!
+    end
+
     private
 
     def mark_victim_as_killed

@@ -30,8 +30,6 @@ gem 'will_paginate', github: 'jonatack/will_paginate'
 
 gem 'awesome_print'
 
-gem 'simplecov', require: false, group: :test
-
 #   https://github.com/brettjnorris/workflow/commit/b95d882cb0b82266ca2c4439b9df1bb63b6bef6c
 gem 'workflow', git: 'https://github.com/antonwestman/workflow.git'
 
@@ -47,6 +45,7 @@ end
 group :test do
   gem 'codeclimate-test-reporter', require: nil
   gem 'database_cleaner'
+  gem 'simplecov', require: false
 end
 
 group :development do

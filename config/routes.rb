@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :rounds do
       resources :kills, only: [:index, :create], shallow: true do
         member do
-          put :accept
+          put :confirm
           put :oppose
         end
       end

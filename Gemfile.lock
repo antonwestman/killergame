@@ -72,6 +72,8 @@ GEM
     bcrypt (3.1.11)
     builder (3.2.2)
     byebug (9.0.6)
+    codeclimate-test-reporter (1.0.5)
+      simplecov
     concurrent-ruby (1.0.2)
     database_cleaner (1.5.3)
     devise (4.2.0)
@@ -227,6 +229,7 @@ DEPENDENCIES
   active_model_serializers
   awesome_print
   byebug
+  codeclimate-test-reporter
   database_cleaner
   devise
   devise_token_auth

@@ -8,12 +8,12 @@ module Game
       user.targets.include? record.victim
     end
 
-    def accept?
-      record.victim == user
+    def confirm?
+      record.victim.user == user
     end
 
     def oppose?
-      record.victim == user
+      record.victim.user == user
     end
   end
 end

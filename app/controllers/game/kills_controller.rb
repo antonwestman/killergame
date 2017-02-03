@@ -25,11 +25,13 @@ module Game
     def confirm
       authorize @kill
       @kill.confirm!
+      head :ok
     end
 
     def oppose
       authorize @kill
       @kill.oppose!
+      head :ok
     end
 
     private

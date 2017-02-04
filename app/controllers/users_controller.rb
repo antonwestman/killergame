@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   # GET /game/users
   def index
-    @q = User.ransack(params[:q])
+    @q = User.search(params[:q])
     @users = @q.result.paginate(page: params[:page])
     render json: @users
   end
@@ -41,6 +41,6 @@ class UsersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:user).permit(:username, :first_name, :last_name, :email)
+    params.permit(:username, :first_name, :last_name, :email)
   end
 end

@@ -20,7 +20,7 @@ class PlacesController < ApplicationController
     authorize @place
 
     if @place.save
-      render json: @place, status: :created, location: @place
+      render json: @place, status: :created
     else
       render json: @place.errors, status: :unprocessable_entity
     end
@@ -52,6 +52,6 @@ class PlacesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def place_params
-    params.require(:place).permit(:name)
+    params.permit(:name)
   end
 end

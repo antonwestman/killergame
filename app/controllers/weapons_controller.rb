@@ -9,18 +9,13 @@ class WeaponsController < ApplicationController
     render json: @weapons
   end
 
-  # GET /weapons/1
-  def show
-    render json: @weapon
-  end
-
   # POST /weapons
   def create
     @weapon = Weapon.new(weapon_params)
     authorize @weapon
 
     if @weapon.save
-      render json: @weapon, status: :created, location: @weapon
+      render json: @weapon, status: :created
     else
       render json: @weapon.errors, status: :unprocessable_entity
     end
@@ -53,6 +48,6 @@ class WeaponsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def weapon_params
-    params.require(:weapon).permit(:name)
+    params.permit(:name)
   end
 end

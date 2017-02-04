@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :confirmable, :omniauthable
   include DeviseTokenAuth::Concerns::User
   validates :email, presence: true
-  has_many :players
+  has_many :players, class_name: Game::Player
   has_many :targets, through: :players
 
   def self.ransackable_attributes(auth_object = nil)

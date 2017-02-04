@@ -4,7 +4,8 @@ module Game
 
     # GET /game/players
     def index
-      @players = Player.where(params.permit(:round_id))
+      @players = Player.where(player_params.permit(:round_id))
+                       .paginate(page: params[:page])
       authorize Player
 
       render json: @players
@@ -26,7 +27,7 @@ module Game
 
     # Only allow a trusted parameter "white list" through.
     def player_params
-      params.require(:player).permit(:round_id)
+      params.permit(:round_id)
     end
   end
 end

@@ -12,6 +12,6 @@ Rails.application.routes.draw do
     end
   end
   resources :users
-  resources :weapons
+  resources :weapons, except: [:show]
   resources :places
 end

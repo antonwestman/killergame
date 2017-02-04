@@ -18,25 +18,27 @@ module Game
     workflow do
       state :unconfirmed do
         event :confirm, transitions_to: :confirmed
+        event :oppose, transitions_to: :confirmed
       end
       state :confirmed
+      state :opposed
     end
 
     after_create :mark_victim_as_killed
 
-    def confirm!
+    def confirm
       victim.confirm_kill!
+    end
+
+    def oppose
+      victim.oppose_kill!
     end
 
     private
 
     def mark_victim_as_killed
-      if victim == killer
-        victim.commit_suicide
-        confirm!
-      else
-        victim.mark_as_killed!
-      end
+      victim.mark_as_killed!
+      confirm! if victim == killer
     end
 
     def validate_rounds

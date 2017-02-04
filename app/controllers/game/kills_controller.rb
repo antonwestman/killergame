@@ -11,12 +11,14 @@ module Game
     end
 
     def create
-      @kill = Kill.new(kill_params)
+      @kill = Kill.new(kill_params) do |kill|
+        kill.killer = current_player
+      end
 
       authorize @kill
 
       if @kill.save
-        render json: @kill, status: :created, location: @kill
+        render json: @kill, status: :created
       else
         render json: @kill.errors, status: :unprocessable_entity
       end
@@ -36,12 +38,16 @@ module Game
 
     private
 
+    def current_player
+      @current_player ||= current_user.players.where(kill_params.permit(:round_id)).first
+    end
+
     def set_kill
       @kill = Kill.find(params[:id])
     end
 
     def kill_params
-      params.require(:kill).permit(:killer_id, :target_id, :round_id)
+      params.permit(:victim_id, :round_id)
     end
   end
 end

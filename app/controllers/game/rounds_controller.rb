@@ -4,26 +4,27 @@ module Game
 
     # GET /game/rounds
     def index
-      @game_rounds = Round.all
+      @game_rounds = Round.paginate(page: params[:page])
+      authorize @game_rounds
 
       render json: @game_rounds
     end
 
     # GET /game/rounds/1
     def show
-      authorize game_round
+      authorize @game_round
       render json: @game_round
     end
 
     # POST /game/rounds
     def create
       authorize Round
-      users = User.where(id: params[:user_ids])
+      users = User.where(id: game_round_params.require(:user_ids))
 
       @game_round = CreateGameRound.call(users: users)
 
       if @game_round.persisted?
-        render json: @game_round, status: :created, location: @game_round
+        render json: @game_round, status: :created
       else
         render json: @game_round.errors, status: :unprocessable_entity
       end
@@ -44,7 +45,7 @@ module Game
 
     # Only allow a trusted parameter "white list" through.
     def game_round_params
-      params.fetch(:game_round, {})
+      params.permit(user_ids: [])
     end
   end
 end

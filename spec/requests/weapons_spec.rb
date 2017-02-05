@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Weapons', type: :request do
-  let(:user) { build(:user) }
+  let(:user) { create(:user) }
+  let(:admin) { create(:admin) }
 
   describe 'GET /weapons' do
     before do
@@ -41,10 +42,18 @@ RSpec.describe 'Weapons', type: :request do
   end
 
   describe 'POST /weapons' do
-    it 'creates and returns a weapon' do
-      post_with_user user, weapons_path(name: 'Umbrella')
-      expect(response).to have_http_status(201)
-      expect(response_data[:name]).to eq 'Umbrella'
+    context 'user is admin' do
+      it 'creates and returns a weapon' do
+        post_with_user admin, weapons_path(name: 'Umbrella')
+        expect(response).to have_http_status(201)
+        expect(response_data[:name]).to eq 'Umbrella'
+      end
+    end
+    context 'user is regular user' do
+      it 'returns 401' do
+        post_with_user user, weapons_path(name: 'Umbrella')
+        expect(response).to have_http_status(401)
+      end
     end
   end
 end

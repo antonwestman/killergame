@@ -1,14 +1,27 @@
 require 'rails_helper'
-
 RSpec.describe 'Game::Kills', type: :request do
   let!(:user) { create(:user) }
 
   describe 'GET /kills' do
     let(:round) { create(:round) }
+    before do
+      create_list(:kill, 5, round: round)
+    end
 
-    it 'resoponds with 401' do
-      get_with_user user, game_round_kills_path(round)
-      expect(response).to have_http_status(401)
+    context 'user is admin' do
+      let(:admin) { create(:admin) }
+      it 'returns list of kills' do
+        get_with_user admin, game_round_kills_path(round)
+        expect(response).to have_http_status(200)
+        expect(response_data.count).to eq 5
+      end
+    end
+
+    context 'user is reglar user' do
+      it 'resoponds with 401' do
+        get_with_user user, game_round_kills_path(round)
+        expect(response).to have_http_status(401)
+      end
     end
   end
   describe 'POST /kills' do

@@ -17,7 +17,9 @@ gem 'active_model_serializers'
 gem 'devise'
 gem 'devise_token_auth'
 gem 'omniauth'
+
 gem 'pundit'
+gem 'rolify'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

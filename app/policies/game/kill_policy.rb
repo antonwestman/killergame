@@ -1,7 +1,7 @@
 module Game
   class KillPolicy < ApplicationPolicy
     def index?
-      false
+      user.has_role? :admin
     end
 
     def create?

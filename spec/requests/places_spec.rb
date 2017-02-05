@@ -39,10 +39,39 @@ RSpec.describe 'Places', type: :request do
   end
 
   describe 'POST /places' do
-    it 'creates and returns a place' do
-      post_with_user user, places_path(name: 'Kitchen')
-      expect(response).to have_http_status(201)
-      expect(response_data[:name]).to eq 'Kitchen'
+    context 'user is admin' do
+      let(:admin) { create(:admin) }
+      it 'creates and returns a place' do
+        post_with_user admin, places_path(name: 'Kitchen')
+        expect(response).to have_http_status(201)
+        expect(response_data[:name]).to eq 'Kitchen'
+      end
+    end
+    context 'user is regular user' do
+      it 'creates and returns a place' do
+        post_with_user user, places_path(name: 'Kitchen')
+        expect(response).to have_http_status(401)
+      end
+    end
+  end
+
+  describe 'PUT /places/:id' do
+    let(:place) { create(:place, name: 'Bathroom') }
+    context 'user is admin' do
+      let(:admin) { create(:admin) }
+      it 'creates and returns a place' do
+        put_with_user admin, place_path(place, name: 'Kitchen')
+        expect(response).to have_http_status(200)
+        expect(response_data[:name]).to eq 'Kitchen'
+        expect(place.reload.name).to eq 'Kitchen'
+      end
+    end
+    context 'user is regular user' do
+      it 'creates and returns a place' do
+        post_with_user user, places_path(name: 'Kitchen')
+        expect(response).to have_http_status(401)
+        expect(place.reload.name).to eq 'Bathroom'
+      end
     end
   end
 end

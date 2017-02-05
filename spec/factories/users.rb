@@ -8,5 +8,11 @@ FactoryGirl.define do
     password 'password'
     password_confirmation 'password'
     confirmed_at Time.zone.now
+
+    factory :admin do
+      after(:build) do |user|
+        user.add_role :admin
+      end
+    end
   end
 end

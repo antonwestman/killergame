@@ -37,6 +37,7 @@ class WeaponsController < ApplicationController
     authorize @weapon
 
     @weapon.destroy
+    head :ok
   end
 
   private

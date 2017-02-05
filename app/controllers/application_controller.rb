@@ -6,8 +6,13 @@ class ApplicationController < ActionController::API
 
   rescue_from ::Pundit::NotAuthorizedError, with: :not_authorized
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActiveRecord::InvalidForeignKey, with: :foreign_key_constraint
 
   protected
+
+  def foreign_key_constraint(exception)
+    render json: { error: exception.message }.to_json, status: :conflict
+  end
 
   def not_authorized(exception)
     render json: { error: exception.message }.to_json, status: :unauthorized

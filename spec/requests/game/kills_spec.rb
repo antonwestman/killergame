@@ -90,24 +90,6 @@ RSpec.describe 'Game::Kills', type: :request do
           expect(response).to have_http_status(404)
         end
       end
-      context 'kill exist' do
-        context 'user can oppose kill' do
-          it 'responds with 200' do
-            put_with_user user, oppose_game_kill_path(kill)
-            expect(response).to have_http_status(200)
-            expect(victim.reload.alive?).to be_truthy
-          end
-        end
-        context 'user can not oppose kill' do
-          let!(:another_user) { create(:user) }
-
-          it 'responds with 401' do
-            put_with_user another_user, oppose_game_kill_path(kill)
-            expect(response).to have_http_status(401)
-            expect(victim.reload.alive?).to be_falsy
-          end
-        end
-      end
     end
   end
 end

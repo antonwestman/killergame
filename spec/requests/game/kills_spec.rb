@@ -8,10 +8,10 @@ RSpec.describe 'Game::Kills', type: :request do
       create_list(:kill, 5, round: round)
     end
 
-    context 'user is admin' do
-      let(:admin) { create(:admin) }
+    context 'user is super_admin' do
+      let(:super_admin) { create(:super_admin) }
       it 'returns list of kills' do
-        get_with_user admin, game_round_kills_path(round)
+        get_with_user super_admin, game_round_kills_path(round)
         expect(response).to have_http_status(200)
         expect(response_data.count).to eq 5
       end
@@ -88,6 +88,24 @@ RSpec.describe 'Game::Kills', type: :request do
         it 'returns 404' do
           put_with_user user, oppose_game_kill_path(1234)
           expect(response).to have_http_status(404)
+        end
+      end
+      context 'kill exist' do
+        context 'user can oppose kill' do
+          it 'responds with 200' do
+            put_with_user user, oppose_game_kill_path(kill)
+            expect(response).to have_http_status(200)
+            expect(victim.reload.alive?).to be_truthy
+          end
+        end
+        context 'user can not oppose kill' do
+          let!(:another_user) { create(:user) }
+
+          it 'responds with 401' do
+            put_with_user another_user, confirm_game_kill_path(kill)
+            expect(response).to have_http_status(401)
+            expect(victim.reload.marked_as_killed?).to be_truthy
+          end
         end
       end
     end

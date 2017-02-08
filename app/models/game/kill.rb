@@ -18,7 +18,7 @@ module Game
     workflow do
       state :unconfirmed do
         event :confirm, transitions_to: :confirmed
-        event :oppose, transitions_to: :confirmed
+        event :oppose, transitions_to: :opposed
       end
       state :confirmed
       state :opposed

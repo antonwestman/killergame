@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update]
 
   # GET /game/users
   def index
@@ -23,13 +23,6 @@ class UsersController < ApplicationController
     else
       render json: @user.errors, status: :unprocessable_entity
     end
-  end
-
-  # DELETE /game/users/1
-  def destroy
-    authorize @user
-
-    @user.destroy
   end
 
   private

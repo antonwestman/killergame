@@ -12,6 +12,7 @@ class ApplicationController < ActionController::API
 
   def foreign_key_constraint(exception)
     render json: { error: exception.message }.to_json, status: :conflict
+    nil
   end
 
   def not_authorized(exception)

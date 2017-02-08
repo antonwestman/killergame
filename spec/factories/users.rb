@@ -9,9 +9,9 @@ FactoryGirl.define do
     password_confirmation 'password'
     confirmed_at Time.zone.now
 
-    factory :admin do
+    factory :super_admin do
       after(:build) do |user|
-        user.add_role :admin
+        user.add_role :super_admin
       end
     end
   end

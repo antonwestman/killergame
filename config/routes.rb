@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :players, only: [:index, :show], shallow: true
     end
   end
-  resources :users
+  resources :users, only: [:index, :show, :update]
   resources :weapons, except: [:show]
   resources :places
 end

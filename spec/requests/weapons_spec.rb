@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Weapons', type: :request do
   let(:user) { create(:user) }
-  let(:admin) { create(:admin) }
+  let(:super_admin) { create(:super_admin) }
 
   describe 'GET /weapons' do
     before do
@@ -42,9 +42,9 @@ RSpec.describe 'Weapons', type: :request do
   end
 
   describe 'POST /weapons' do
-    context 'user is admin' do
+    context 'user is super_admin' do
       it 'creates and returns a weapon' do
-        post_with_user admin, weapons_path(name: 'Umbrella')
+        post_with_user super_admin, weapons_path(name: 'Umbrella')
         expect(response).to have_http_status(201)
         expect(response_data[:name]).to eq 'Umbrella'
       end
@@ -59,9 +59,9 @@ RSpec.describe 'Weapons', type: :request do
 
   describe 'PUT /weapons/:id' do
     let(:weapon) { create(:weapon, name: 'Hair brush') }
-    context 'user is admin' do
+    context 'user is super_admin' do
       it 'updates weapon' do
-        put_with_user admin, weapon_path(weapon, name: 'Tooth picker')
+        put_with_user super_admin, weapon_path(weapon, name: 'Tooth picker')
         expect(response).to have_http_status(200)
         expect(response_data[:name]).to eq 'Tooth picker'
         expect(weapon.reload.name).to eq 'Tooth picker'
@@ -87,10 +87,12 @@ RSpec.describe 'Weapons', type: :request do
         expect(weapon.persisted?).to be true
       end
     end
-    context 'user is admin' do
+    context 'user is super_admin' do
       context 'weapon is not used in a game' do
         it 'deletes the weapon' do
-          expect { delete_with_user admin, weapon_path(weapon) }.to change { Weapon.count }.by(-1)
+          expect do
+            delete_with_user super_admin, weapon_path(weapon)
+          end.to change { Weapon.count }.by(-1)
         end
       end
       context 'weapon is used in a game' do
@@ -100,7 +102,7 @@ RSpec.describe 'Weapons', type: :request do
         end
 
         it 'returns 401 and keeps the weapon' do
-          delete_with_user admin, weapon_path(weapon)
+          delete_with_user super_admin, weapon_path(weapon)
           expect(response).to have_http_status(409)
           expect(weapon.persisted?).to be true
         end

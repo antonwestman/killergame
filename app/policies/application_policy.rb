@@ -15,15 +15,15 @@ class ApplicationPolicy
   end
 
   def create?
-    user.has_role? :admin
+    user.has_role? :super_admin
   end
 
   def update?
-    user.has_role? :admin
+    user.has_role? :super_admin
   end
 
   def destroy?
-    user.has_role? :admin
+    user.has_role? :super_admin
   end
 
   def scope

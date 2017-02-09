@@ -45,6 +45,8 @@ module Game
 
     # Only allow a trusted parameter "white list" through.
     def game_round_params
+      ids = params[:user_ids]
+      params[:user_ids] = JSON.parse ids if ids.is_a? String
       params.permit(user_ids: [])
     end
   end

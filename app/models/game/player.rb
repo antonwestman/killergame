@@ -4,8 +4,7 @@ module Game
 
     belongs_to :user
     belongs_to :round
-    has_one :mission, autosave: true, inverse_of: :player, dependent: :destroy
-    has_one :target, through: :mission
+    has_many :missions, autosave: true, inverse_of: :player, dependent: :destroy
     has_one :contract_on_own_head, class_name: Mission,
                                    autosave: true,
                                    foreign_key: :target_id,
@@ -35,5 +34,21 @@ module Game
     end
 
     delegate :email, to: :user
+    delegate :target, to: :mission
+
+    def mission
+      missions.order('created_at DESC').first
+    end
+
+    def commit_suicide
+      kills.create(victim: self, round: round)
+    end
+
+    def confirm_kill
+      contract_on_own_head.player
+                          .missions
+                          .create(mission.attributes
+                                         .slice('target_id', 'weapon_id', 'place_id'))
+    end
   end
 end

@@ -5,7 +5,7 @@ FactoryGirl.define do
 
     trait :with_mission do
       after(:build) do |player|
-        player.mission = FactoryGirl.create(:mission)
+        player.missions << FactoryGirl.create(:mission)
       end
     end
   end

@@ -23,6 +23,11 @@ RSpec.describe Game::Kill, type: :model do
       let(:player) { create(:player, round: round) }
       let(:victim) { create(:player, round: round) }
 
+      before do
+        create(:mission, player: player, target: victim)
+        create(:mission, player: victim, target: player)
+      end
+
       context 'victim is killer (suicide)' do
         it 'sets victim to dead and confirms kill' do
           kill = Game::Kill.create(victim: victim,

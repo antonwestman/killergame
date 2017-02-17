@@ -56,6 +56,11 @@ RSpec.describe 'Game::Kills', type: :request do
     let!(:victim) { create(:player, user: user, round: round) }
     let!(:kill) { create(:kill, victim: victim, killer: player, round: round) }
 
+    before do
+      create(:mission, player: player, target: victim)
+      create(:mission, player: victim, target: player)
+    end
+
     describe 'PUT /kills/:id/confirm' do
       context 'kill does not exist' do
         it 'returns 404' do

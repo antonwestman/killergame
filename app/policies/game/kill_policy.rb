@@ -5,7 +5,7 @@ module Game
     end
 
     def create?
-      user.targets.include? record.victim
+      user.players.map(&:target).include? record.victim
     end
 
     def confirm?

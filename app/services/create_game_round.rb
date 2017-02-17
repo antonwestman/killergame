@@ -1,10 +1,11 @@
 class CreateGameRound
-  def self.call(users:)
-    new(users: users).call
+  def self.call(users:, admin:)
+    new(users: users, admin: admin).call
   end
 
-  def initialize(users:)
+  def initialize(users:, admin:)
     @users = users
+    @admin = admin
     @round = Game::Round.new
   end
 
@@ -23,7 +24,8 @@ class CreateGameRound
           weapon: Weapon.all.sample
         )
       end
-      @round.save!
+      @round.save! && @admin.add_role(:admin, @round)
+
       raise 'This is not Soliraire. At least two players are required' if @round.players.count < 2
     end
 

@@ -1,5 +1,6 @@
 module Game
   class Round < ApplicationRecord
+    resourcify
     has_many :players, dependent: :destroy
     has_many :missions, through: :players
     has_many :kills, dependent: :destroy

@@ -36,11 +36,21 @@ RSpec.describe 'Game::Rounds', type: :request do
 
   describe 'DELETE /game/rounds/:id' do
     let(:round) { create(:round) }
-
-    it 'returns status 401 (and does not delete round)' do
-      delete_with_user user, game_round_path(round)
-      expect(response).to have_http_status(401)
-      expect(round.reload.persisted?).to be true
+    context 'when user is not admin' do
+      it 'returns status 401 (and does not delete round)' do
+        delete_with_user user, game_round_path(round)
+        expect(response).to have_http_status(401)
+        expect(round.reload.persisted?).to be true
+      end
+    end
+    context 'when user is admin' do
+      let!(:round) { create(:round, with_admin: user) }
+      it 'returns deletes round' do
+        expect {
+          delete_with_user user, game_round_path(round)
+          expect(response).to have_http_status(204)
+        }.to change { Game::Round.count }.by(-1)
+      end
     end
   end
 end

@@ -3,5 +3,9 @@ module Game
     def create?
       true
     end
+
+    def destroy?
+      user.has_role? :admin, record
+    end
   end
 end

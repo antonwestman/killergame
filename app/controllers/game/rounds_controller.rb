@@ -21,7 +21,7 @@ module Game
       authorize Round
       users = User.where(id: game_round_params.require(:user_ids))
 
-      @game_round = CreateGameRound.call(users: users)
+      @game_round = CreateGameRound.call(users: users, admin: current_user)
 
       if @game_round.persisted?
         render json: @game_round, status: :created

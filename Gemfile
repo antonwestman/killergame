@@ -38,6 +38,10 @@ gem 'awesome_print'
 #   https://github.com/brettjnorris/workflow/commit/b95d882cb0b82266ca2c4439b9df1bb63b6bef6c
 gem 'workflow', git: 'https://github.com/antonwestman/workflow.git'
 
+group :staging do
+  gem 'recipient_interceptor'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

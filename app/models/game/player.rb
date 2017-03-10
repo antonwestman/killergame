@@ -36,6 +36,10 @@ module Game
     delegate :email, to: :user
     delegate :target, to: :mission
 
+    def username_or_email
+      player_name || user.username || user.email
+    end
+
     def mission
       missions.order('created_at DESC').first
     end

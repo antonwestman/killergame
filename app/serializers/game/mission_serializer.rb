@@ -1,9 +1,9 @@
 module Game
   class MissionSerializer < ActiveModel::Serializer
-    attributes :id, :target, :weapon, :place
+    attributes :id, :target_user, :weapon, :place
 
-    def target
-      object.target.user.username
+    def target_user
+      object.target.username_or_email
     end
 
     def weapon

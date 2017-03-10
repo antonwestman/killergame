@@ -17,7 +17,7 @@ class CreateGameRound
 
       shuffled_players = players.shuffle
       shuffled_players.each.with_index do |player, index|
-        Game::Mission.create(
+        Game::Mission.create!(
           player: player,
           target: shuffled_players[(index + 1) % shuffled_players.count],
           place: Place.all.sample,

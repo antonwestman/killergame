@@ -32,8 +32,8 @@ module Game
 
     def me
       authorize @game_round
-      player = current_user.players.where(round: @game_round)
-      render json: player
+      player = current_user.players.where(round: @game_round).first
+      render json: player, serializer: PlayerSerializers::Me
     end
 
     # DELETE /game/rounds/1

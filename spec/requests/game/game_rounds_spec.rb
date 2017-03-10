@@ -45,10 +45,26 @@ RSpec.describe 'Game::Rounds', type: :request do
   describe 'POST /game/rounds' do
     let(:users) { create_list(:user, 3) }
 
-    it 'creates and returns round' do
-      post_with_user user, game_rounds_path(user_ids: users.map(&:id))
-      expect(response).to have_http_status(201)
-      expect(response_data[:alive_players_count]).to eq 3
+    context 'weapons and places exist in db' do
+      before do
+        create_list(:weapon, 3)
+        create_list(:place, 3)
+      end
+
+      it 'creates and returns round' do
+        post_with_user user, game_rounds_path(user_ids: users.map(&:id))
+        expect(response).to have_http_status(201)
+        expect(response_data[:alive_players_count]).to eq 3
+      end
+    end
+
+    context 'no weapons or places exist in db' do
+      it 'raises' do
+        expect {
+          post_with_user user,
+                         game_rounds_path(user_ids: users.map(&:id))
+        }.to raise_error(ActiveRecord::RecordInvalid)
+      end
     end
   end
 

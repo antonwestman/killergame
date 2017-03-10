@@ -8,14 +8,14 @@ module Game
                        .paginate(page: params[:page])
       authorize Player
 
-      render json: @players
+      render json: @players, each_serializer: PlayerSerializers::Base
     end
 
     # GET /game/players/1
     def show
       authorize @player
 
-      render json: @player
+      render json: @player, serializer: PlayerSerializers::Base
     end
 
     private

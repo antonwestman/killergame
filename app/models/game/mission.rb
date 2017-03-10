@@ -4,5 +4,10 @@ module Game
     belongs_to :target, class_name: Game::Player
     belongs_to :place
     belongs_to :weapon
+
+    validates :player,
+              :target,
+              :place,
+              :weapon, presence: true
   end
 end

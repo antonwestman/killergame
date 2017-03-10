@@ -1,6 +1,6 @@
 module Game
   class RoundsController < ApplicationController
-    before_action :set_game_round, only: [:show, :update, :destroy]
+    before_action :set_game_round, only: [:show, :update, :destroy, :me]
 
     # GET /game/rounds
     def index
@@ -28,6 +28,12 @@ module Game
       else
         render json: @game_round.errors, status: :unprocessable_entity
       end
+    end
+
+    def me
+      authorize @game_round
+      player = current_user.players.where(round: @game_round)
+      render json: player
     end
 
     # DELETE /game/rounds/1

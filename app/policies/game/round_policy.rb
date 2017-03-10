@@ -4,6 +4,10 @@ module Game
       true
     end
 
+    def me?
+      user.players.map(&:round).include? record
+    end
+
     def destroy?
       user.has_role? :admin, record
     end

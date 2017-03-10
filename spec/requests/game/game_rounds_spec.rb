@@ -23,6 +23,24 @@ RSpec.describe 'Game::Rounds', type: :request do
       expect(response_data[:ongoing]).to be true
     end
   end
+  describe 'GET /game/rounds/:id/me' do
+    let(:round) { create(:round, with_users: [user]) }
+    let(:another_user) { create(:user) }
+
+    context 'current user is part of game' do
+      it 'returns player' do
+        get_with_user user, me_game_round_path(round)
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context 'current user is not part of game' do
+      it 'returns 401' do
+        get_with_user another_user, me_game_round_path(round)
+        expect(response).to have_http_status(401)
+      end
+    end
+  end
 
   describe 'POST /game/rounds' do
     let(:users) { create_list(:user, 3) }

@@ -9,6 +9,7 @@ class User < ApplicationRecord
   validates :email, presence: true
   has_many :players, class_name: Game::Player
   has_many :targets, through: :players
+  has_and_belongs_to_many :roles, join_table: :users_roles
 
   before_destroy :transfer_game_data
 

@@ -21,7 +21,9 @@ module Game
       authorize Round
       users = User.where(id: game_round_params.require(:user_ids))
 
-      @game_round = CreateGameRound.call(users: users, admin: current_user)
+      @game_round = CreateGameRound.call(users: users,
+                                         admin: current_user,
+                                         name: game_round_params[:name])
 
       if @game_round.persisted?
         render json: @game_round, status: :created
@@ -53,7 +55,7 @@ module Game
     def game_round_params
       ids = params[:user_ids]
       params[:user_ids] = JSON.parse ids if ids.is_a? String
-      params.permit(user_ids: [])
+      params.permit(:name, user_ids: [])
     end
   end
 end

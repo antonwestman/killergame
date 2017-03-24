@@ -1,12 +1,12 @@
 class CreateGameRound
-  def self.call(users:, admin:)
-    new(users: users, admin: admin).call
+  def self.call(users:, admin:, name: nil)
+    new(users: users, admin: admin, name: name).call
   end
 
-  def initialize(users:, admin:)
+  def initialize(users:, admin:, name:)
     @users = users
     @admin = admin
-    @round = Game::Round.new
+    @round = Game::Round.new(name: name)
   end
 
   def call

@@ -52,7 +52,7 @@ RSpec.describe 'Game::Rounds', type: :request do
       end
 
       it 'creates and returns round' do
-        post_with_user user, game_rounds_path(user_ids: users.map(&:id))
+        post_with_user user, game_rounds_path(user_ids: users.map(&:id), name: 'Killingtime')
         expect(response).to have_http_status(201)
         expect(response_data[:alive_players_count]).to eq 3
       end

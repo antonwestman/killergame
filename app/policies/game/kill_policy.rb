@@ -1,11 +1,13 @@
 module Game
   class KillPolicy < ApplicationPolicy
     def index?
-      user.has_role? :super_admin
+      user.has_role?(:super_admin)
     end
 
     def create?
-      user.players.map(&:target).include? record.victim
+      user.players
+          .include?(record.killer) && record.killer
+                                            .target == record.victim
     end
 
     def confirm?

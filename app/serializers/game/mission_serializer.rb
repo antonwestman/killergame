@@ -3,7 +3,7 @@ module Game
     attributes :id, :target_user, :weapon, :place
 
     def target_user
-      object.target.username_or_email
+      { username: object.target.username_or_email, id: object.target.id }
     end
 
     def weapon

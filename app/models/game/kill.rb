@@ -28,6 +28,7 @@ module Game
 
     def confirm
       victim.confirm_kill!
+      round.update_game_state!
     end
 
     def oppose

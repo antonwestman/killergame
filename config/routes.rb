@@ -5,16 +5,16 @@ Rails.application.routes.draw do
       member do
         get :me
       end
-      resources :kills, only: [:index, :create], shallow: true do
+      resources :kills, only: %i[index create], shallow: true do
         member do
           put :confirm
           put :oppose
         end
       end
-      resources :players, only: [:index, :show], shallow: true
+      resources :players, only: %i[index show], shallow: true
     end
   end
-  resources :users, only: [:index, :show, :update]
+  resources :users, only: %i[index show update]
   resources :weapons, except: [:show]
   resources :places
 end

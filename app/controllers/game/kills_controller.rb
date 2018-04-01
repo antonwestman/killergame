@@ -1,6 +1,6 @@
 module Game
   class KillsController < ApplicationController
-    before_action :set_kill, only: [:confirm, :oppose]
+    before_action :set_kill, only: %i[confirm oppose]
 
     # GET /kills
     def index

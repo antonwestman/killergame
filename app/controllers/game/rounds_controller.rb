@@ -1,6 +1,6 @@
 module Game
   class RoundsController < ApplicationController
-    before_action :set_game_round, only: [:show, :update, :destroy, :me]
+    before_action :set_game_round, only: %i[show destroy me]
 
     # GET /game/rounds
     def index

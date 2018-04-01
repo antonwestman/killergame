@@ -34,7 +34,7 @@ module Killergame
         resource '*',
                  headers: :any,
                  expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-                 methods: [:get, :post, :options, :delete, :put]
+                 methods: %i[get post options delete put]
       end
     end
   end

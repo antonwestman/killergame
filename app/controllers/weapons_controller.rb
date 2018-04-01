@@ -1,5 +1,5 @@
 class WeaponsController < ApplicationController
-  before_action :set_weapon, only: [:show, :update, :destroy]
+  before_action :set_weapon, only: %i[update destroy]
 
   # GET /weapons
   def index

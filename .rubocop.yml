@@ -35,3 +35,11 @@ Style/FrozenStringLiteralComment:
 Style/BlockDelimiters:
   Exclude:
     - 'spec/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'spec/**/*'

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :player, aliases: [:target, :killer, :victim], class: 'Game::Player' do
+  factory :player, aliases: %i[target killer victim], class: 'Game::Player' do
     user
     round
 

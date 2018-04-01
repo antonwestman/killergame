@@ -31,7 +31,7 @@ RSpec.describe Game::Round, type: :model do
     context 'when more than one player is alive' do
       let!(:round) { create(:round, with_users: create_list(:user, 2)) }
       it 'does not set ongoing to false' do
-        expect { round.update_game_state! }.to_not change { round.ongoing }
+        expect { round.update_game_state! }.to_not(change { round.ongoing })
       end
     end
 

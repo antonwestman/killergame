@@ -14,7 +14,7 @@ class User < ApplicationRecord
   before_destroy :scramble_user_info_and_transfer_game_data
 
   def self.ransackable_attributes(auth_object = nil)
-    super & %w(username first_name last_name email)
+    super & %w[username first_name last_name email]
   end
 
   private

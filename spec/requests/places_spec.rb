@@ -83,7 +83,7 @@ RSpec.describe 'Places', type: :request do
         expect do
           delete_with_user user, place_path(place)
           expect(response).to have_http_status(401)
-        end.to_not change { Place.count }
+        end.to_not(change { Place.count })
       end
     end
 
@@ -106,7 +106,7 @@ RSpec.describe 'Places', type: :request do
           expect do
             delete_with_user super_admin, place_path(place)
             expect(response).to have_http_status(409)
-          end.to_not change { Place.count }
+          end.to_not(change { Place.count })
         end
       end
     end

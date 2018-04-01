@@ -11,13 +11,22 @@ class User < ApplicationRecord
   has_many :targets, through: :players
   has_and_belongs_to_many :roles, join_table: :users_roles
 
-  before_destroy :transfer_game_data
+  before_destroy :scramble_user_info_and_transfer_game_data
 
   def self.ransackable_attributes(auth_object = nil)
     super & %w(username first_name last_name email)
   end
 
   private
+
+  def scramble_user_info_and_transfer_game_data
+    email.update("DELETED_USER_WITH_ID#{id}@foo")
+    first_name.update("DELETED")
+    last_name.update("DELETED")
+    username.update("DELETED")
+    uid.update(email)
+    transfer_game_data
+  end
 
   def transfer_game_data
     players.alive.each(&:commit_suicide)

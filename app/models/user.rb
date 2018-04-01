@@ -20,12 +20,14 @@ class User < ApplicationRecord
   private
 
   def scramble_user_info_and_transfer_game_data
-    email.update("DELETED_USER_WITH_ID#{id}@foo")
-    first_name.update("DELETED")
-    last_name.update("DELETED")
-    username.update("DELETED")
-    uid.update(email)
-    transfer_game_data
+    transaction do
+      update(email: "DELETED_USER_WITH_ID#{id}@foo",
+             first_name: 'Joe',
+             last_name: 'Doe',
+             username: 'DELETED',
+             uid: "DELETED_USER_WITH_ID#{id}@foo")
+      transfer_game_data
+    end
   end
 
   def transfer_game_data
